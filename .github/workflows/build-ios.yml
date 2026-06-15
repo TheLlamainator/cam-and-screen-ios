@@ -6,6 +6,9 @@ on:
       - "**"
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: macos-15
@@ -67,3 +70,16 @@ jobs:
             CamAndScreen-Simulator.zip
             CamAndScreen-unsigned.ipa
           retention-days: 30
+
+      - name: Publish latest build as a release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release delete latest-build --yes || true
+          git push origin :refs/tags/latest-build || true
+          gh release create latest-build \
+            CamAndScreen-Simulator.zip \
+            CamAndScreen-unsigned.ipa \
+            --title "Latest build ($(date -u +%Y-%m-%d_%H-%M-%SZ))" \
+            --notes "Automated build from commit ${{ github.sha }}. CamAndScreen-unsigned.ipa needs to be re-signed (e.g. with Sideloadly or AltStore) before installing on a device." \
+            --target ${{ github.sha }}
