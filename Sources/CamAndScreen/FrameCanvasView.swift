@@ -56,7 +56,7 @@ struct FrameCanvasView: View {
             }
         }
         .clipped()
-        .onChange(of: selectedItem) { _, newItem in
+        .onChange(of: selectedItem) { newItem in
             Task {
                 guard let newItem,
                       let data = try? await newItem.loadTransferable(type: Data.self),
