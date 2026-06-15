@@ -1,0 +1,27 @@
+name: CamAndScreen
+options:
+  bundleIdPrefix: com.camandscreen.app
+  deploymentTarget:
+    iOS: "16.0"
+  createIntermediateGroups: true
+targets:
+  CamAndScreen:
+    type: application
+    platform: iOS
+    sources:
+      - path: Sources/CamAndScreen
+        excludes:
+          - Info.plist
+    info:
+      path: Sources/CamAndScreen/Info.plist
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.camandscreen.app
+        PRODUCT_NAME: CamAndScreen
+        CODE_SIGN_STYLE: Automatic
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        SWIFT_VERSION: "5.0"
+        MARKETING_VERSION: "1.0"
+        CURRENT_PROJECT_VERSION: "1"
+        INFOPLIST_KEY_UILaunchScreen_Generation: NO
